@@ -20,26 +20,26 @@ userRouter.post("/user/login", async function (req, res) {
     try {
         let result = await UserModel.findOne(query);
         let resultJSON = result.toJSON();
-        let token = jwt.sign(resultJSON, config.Secret, { expiresIn: config.EXPIRESD });
+        let token = jwt.sign(resultJSON, config.Secret, { expiresIn: config.EXPIRES });
         res.json(new SuccessModel(token));
     } catch (error) {
-        res.json(new ErrorModel("登录失败"));
+        res.json(new ErrorModel("loginFailed"));
     }
 });
 
 // 查询当前用户信息接口
-userRouter.get("/user/currentInfo", async function (req, res) {
+userRouter.get("/user/currentUser", async function (req, res) {
     let authorization = req.headers["authorization"];
     let token = authorization.split(" ")[1];
     let result = jwt.verify(token, config.Secret);
-    res.json(new SuccessModel(result, "注册成功"));
+    res.json(new SuccessModel(result, "loginWasSuccessful"));
 });
 
 // 查询所有用户信息
 userRouter.get("/user/account", async function (req, res) {
     try {
         let result = await UserModel.find();
-        res.json(new SuccessModel(result, "查询成功"));
+        res.json(new SuccessModel(result, "queryWasSuccessful"));
     } catch (error) {
         res.json(new ErrorModel(error));
     }
