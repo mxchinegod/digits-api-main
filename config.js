@@ -1,5 +1,5 @@
 module.exports = {
-    dbUrl: 'mongodb://localhost:27017/pro5App',
-    Secret: 'pro5',
+    dbUrl: 'mongodb://localhost:27017/digits',
+    Secret: 'antoniosierra',
     EXPIRES: 606024
 }

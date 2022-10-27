@@ -7,13 +7,13 @@ let jwt = require("jsonwebtoken");
 let config = require("../config");
 const { SuccessModel, ErrorModel } = require("../utils/resModule");
 
-// 用户注册接口
+// userRegistrationInterface
 userRouter.post("/user/register", async function (req, res) {
     await UserModel.create(req.body);
-    res.json(new SuccessModel("注册成功"));
+    res.json(new SuccessModel("loginWasSuccessful"));
 });
 
-// 登录接口
+// loginInterface
 userRouter.post("/user/login", async function (req, res) {
     let { username, password } = req.body;
     let query = { username, password };
@@ -27,7 +27,7 @@ userRouter.post("/user/login", async function (req, res) {
     }
 });
 
-// 查询当前用户信息接口
+// queryTheCurrentUserInformationInterface
 userRouter.get("/user/currentUser", async function (req, res) {
     let authorization = req.headers["authorization"];
     let token = authorization.split(" ")[1];
@@ -35,7 +35,7 @@ userRouter.get("/user/currentUser", async function (req, res) {
     res.json(new SuccessModel(result, "loginWasSuccessful"));
 });
 
-// 查询所有用户信息
+// queryAllUserInformation
 userRouter.get("/user/account", async function (req, res) {
     try {
         let result = await UserModel.find();
@@ -45,20 +45,20 @@ userRouter.get("/user/account", async function (req, res) {
     }
 });
 
-// 删除用户信息
+// deleteUserInformation
 userRouter.delete("/user/account", async function (req, res) {
     let hasRes = await UserModel.findOne(req.body);
     if (hasRes) {
         let { deletedCount } = await UserModel.remove(req.body);
         if (deletedCount) {
-            res.json(new SuccessModel("删除成功"));
+            res.json(new SuccessModel("deletionSucceeded"));
         }
     } else {
-        res.json(new ErrorModel("删除失败"));
+        res.json(new ErrorModel("deleteFailed"));
     }
 });
 
-// 修改用户信息
+// modifyUserInformation
 userRouter.put("/user/account", async function (req, res) {
     let { nModified } = await UserModel.update(
         req.query,
@@ -66,9 +66,9 @@ userRouter.put("/user/account", async function (req, res) {
         { multi: true }
     );
     if (nModified) {
-        res.json(new SuccessModel("修改成功"));
+        res.json(new SuccessModel("modificationSucceeded"));
     } else {
-        res.json(new ErrorModel("修改失败"));
+        res.json(new ErrorModel("modificationFailed"));
     }
 });
 

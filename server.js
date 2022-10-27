@@ -9,17 +9,17 @@ var { expressjwt: jwt } = require("express-jwt");
 const config = require("./config");
 let { userRouter } = require("./routes/index");
 
-// 处理 post 请求
+// use post request
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// 处理跨域
+// processCrossDomain
 app.use(cors());
 
-// 日志
+// journal
 app.use(logger("dev"));
 
-// 使用 cookie
+// use cookie
 app.use(cookieParser());
 
 // 校验 token，获取 headers ⾥里里的 Authorization 的 token，要写在路由加载之前，静态资源之后
@@ -29,7 +29,7 @@ app.use(
         algorithms: ["HS256"],
         credentialsRequired: true,
     }).unless({
-        path: ["/api/user/register", "/api/user/login", "/api/user/account"], // ⽩白名单，除了了这⾥里里写的地址，其他的 URL 都需要验证
+        path: ["/api/user/register", "/api/user/login", "/api/user/account", "/api/setup/status"], // ⽩白名单，除了了这⾥里里写的地址，其他的 URL 都需要验证
     })
 );
 
@@ -43,7 +43,7 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
     if (err.name === "UnauthorizedError") {
-        // 这个需要根据⾃自⼰己的业务逻辑来处理理
+        // thisNeedsToBeHandledAccordingToOurOwnBusinessLogic
         res.status(401).send({ code: -1, msg: "Invalid token." });
     } else {
         // set locals, only providing error in development
