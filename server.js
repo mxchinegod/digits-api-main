@@ -7,7 +7,7 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var { expressjwt: jwt } = require("express-jwt");
 const config = require("./config");
-let { userRouter } = require("./routes/index");
+let { userRouter, altDataRouter, setup } = require("./routes/index");
 
 // use post request
 app.use(bodyParser.json());
@@ -29,11 +29,14 @@ app.use(
         algorithms: ["HS256"],
         credentialsRequired: true,
     }).unless({
-        path: ["/api/user/register", "/api/user/login", "/api/user/account", "/api/setup/status"], // ⽩白名单，除了了这⾥里里写的地址，其他的 URL 都需要验证
+        path: ["/api/setup/status", "/api/user/register", "/api/user/login", "/api/user/account"], // ⽩白名单，除了了这⾥里里写的地址，其他的 URL 都需要验证
     })
 );
 
-app.use("/api", userRouter);
+app.use("/api/user", userRouter);
+app.use("/api/altdata", altDataRouter);
+
+app.use("/api/setup", setup);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

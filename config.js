@@ -1,5 +1,8 @@
 module.exports = {
     dbUrl: 'mongodb://localhost:27017/digits',
     Secret: 'antoniosierra',
-    EXPIRES: 606024
+    EXPIRES: 606024,
+    apiHost: {
+        altData: 'http://localhost:6000'
+    }
 }

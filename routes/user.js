@@ -8,13 +8,13 @@ let config = require("../config");
 const { SuccessModel, ErrorModel } = require("../utils/resModule");
 
 // userRegistrationInterface
-userRouter.post("/user/register", async function (req, res) {
+userRouter.post("/register", async function (req, res) {
     await UserModel.create(req.body);
     res.json(new SuccessModel("loginWasSuccessful"));
 });
 
 // loginInterface
-userRouter.post("/user/login", async function (req, res) {
+userRouter.post("/login", async function (req, res) {
     let { username, password } = req.body;
     let query = { username, password };
     try {
@@ -28,7 +28,7 @@ userRouter.post("/user/login", async function (req, res) {
 });
 
 // queryTheCurrentUserInformationInterface
-userRouter.get("/user/currentUser", async function (req, res) {
+userRouter.get("/currentUser", async function (req, res) {
     let authorization = req.headers["authorization"];
     let token = authorization.split(" ")[1];
     let result = jwt.verify(token, config.Secret);
@@ -36,7 +36,7 @@ userRouter.get("/user/currentUser", async function (req, res) {
 });
 
 // queryAllUserInformation
-userRouter.get("/user/account", async function (req, res) {
+userRouter.get("/account", async function (req, res) {
     try {
         let result = await UserModel.find();
         res.json(new SuccessModel(result, "queryWasSuccessful"));
@@ -46,7 +46,7 @@ userRouter.get("/user/account", async function (req, res) {
 });
 
 // deleteUserInformation
-userRouter.delete("/user/account", async function (req, res) {
+userRouter.delete("/account", async function (req, res) {
     let hasRes = await UserModel.findOne(req.body);
     if (hasRes) {
         let { deletedCount } = await UserModel.remove(req.body);
@@ -59,8 +59,8 @@ userRouter.delete("/user/account", async function (req, res) {
 });
 
 // modifyUserInformation
-userRouter.put("/user/account", async function (req, res) {
-    let { nModified } = await UserModel.update(
+userRouter.put("/account", async function (req, res) {
+    let { nModified } = await UserModel.updateOne(
         req.query,
         { $set: req.body },
         { multi: true }
