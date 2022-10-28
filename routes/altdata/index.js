@@ -14,6 +14,7 @@ altDataRouter.get("/darkpool", async function (req, res) {
     })
 });
 
+// News controller
 altDataRouter.post("/news", async function (req, res) {
     api.NewsAPI.everything(req.body.query).then((data)=>{
         res.json(new SuccessModel(data));

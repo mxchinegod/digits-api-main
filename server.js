@@ -7,7 +7,7 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var { expressjwt: jwt } = require("express-jwt");
 const config = require("./config");
-let { userRouter, altDataRouter, setup } = require("./routes/index");
+let { userRouter, tdaDataRouter, altDataRouter, setup } = require("./routes/index");
 
 // use post request
 app.use(bodyParser.json());
@@ -35,6 +35,7 @@ app.use(
 
 app.use("/api/user", userRouter);
 app.use("/api/altdata", altDataRouter);
+app.use("/api/tdadata", tdaDataRouter);
 
 app.use("/api/setup", setup);
 
