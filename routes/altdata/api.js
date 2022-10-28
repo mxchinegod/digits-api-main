@@ -8,6 +8,13 @@ class DarkPool {
     }
 }
 
+class NewsAPI {
+    static everything(query) {
+        return https.post(`${altDataHost}/news/everything`, {"query":query}).then((data)=>{return data.data});
+    }
+}
+
 module.exports = {
     DarkPool
+    , NewsAPI
 }

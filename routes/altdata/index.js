@@ -14,6 +14,13 @@ altDataRouter.get("/darkpool", async function (req, res) {
     })
 });
 
+altDataRouter.post("/news", async function (req, res) {
+    api.NewsAPI.everything(req.body.query).then((data)=>{
+        res.json(new SuccessModel(data));
+    })
+});
+
+
 module.exports = {
     altDataRouter,
 };
