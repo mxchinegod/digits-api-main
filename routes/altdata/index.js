@@ -20,7 +20,6 @@ altDataRouter.post("/news", async function (req, res) {
     })
 });
 
-
 module.exports = {
     altDataRouter,
 };
