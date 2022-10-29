@@ -1,9 +1,7 @@
-// routes/altdata.js
+// routes/tdadata.js
 
 let express = require("express");
 let tdaDataRouter = express.Router();
-let jwt = require("jsonwebtoken");
-let config = require("../../config");
 const { SuccessModel, ErrorModel } = require("../../utils/resModule");
 const api = require('./api')
 

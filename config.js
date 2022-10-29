@@ -5,5 +5,6 @@ module.exports = {
     apiHost: {
         altData: 'http://localhost:6000'
         , tdaData: 'http://localhost:6001'
+        , mlData: 'http://127.0.0.1:7000'
     }
 }
