@@ -8,6 +8,13 @@ class Options {
     }
 }
 
+class Volatility {
+    static volatility(query) {
+        return https.post(`${tdaDataHost}/tda/volatility`, {"query":query}).then((data)=>{return data.data});
+    }
+}
+
 module.exports = {
     Options
+    , Volatility
 }

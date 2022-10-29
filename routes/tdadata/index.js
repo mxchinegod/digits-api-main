@@ -12,6 +12,13 @@ tdaDataRouter.post("/options", async function (req, res) {
     })
 });
 
+// Volatility controller
+tdaDataRouter.post("/volatility", async function (req, res) {
+    api.Volatility.volatility(req.body).then((data)=>{
+        res.json(new SuccessModel(data));
+    })
+});
+
 module.exports = {
     tdaDataRouter,
 };

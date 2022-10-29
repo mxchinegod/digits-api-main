@@ -10,7 +10,7 @@ const { SuccessModel, ErrorModel } = require("../utils/resModule");
 // userRegistrationInterface
 userRouter.post("/register", async function (req, res) {
     await UserModel.create(req.body);
-    res.json(new SuccessModel("loginWasSuccessful"));
+    res.json(new SuccessModel("registerWasSuccessful"));
 });
 
 // loginInterface
