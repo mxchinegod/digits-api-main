@@ -7,14 +7,16 @@ let jwt = require("jsonwebtoken");
 let config = require("../config");
 const { SuccessModel, ErrorModel } = require("../utils/resModule");
 
-// userRegistrationInterface
 userRouter.post("/register", async function (req, res) {
+    /* Creating a new user and then sending a response to the client. */
     await UserModel.create(req.body);
     res.json(new SuccessModel("registerWasSuccessful"));
 });
 
-// loginInterface
 userRouter.post("/login", async function (req, res) {
+    /* This is the login route. It is taking the username and password from the request body and then
+    using them to query the database. If the query is successful, it will return a token. If the
+    query is unsuccessful, it will return an error. */
     let { username, password } = req.body;
     let query = { username, password };
     try {
@@ -27,17 +29,19 @@ userRouter.post("/login", async function (req, res) {
     }
 });
 
-// queryTheCurrentUserInformationInterface
 userRouter.get("/currentUser", async function (req, res) {
+    /* This is the route that is used to get the current user's information. It is taking the token
+    from the request header and then using it to query the database. If the query is successful, it
+    will return the user's information. If the query is unsuccessful, it will return an error. */
     let authorization = req.headers["authorization"];
     let token = authorization.split(" ")[1];
     let result = jwt.verify(token, config.Secret);
     res.json(new SuccessModel(result, "loginWasSuccessful"));
 });
 
-// queryAllUserInformation
 userRouter.get("/account", async function (req, res) {
     try {
+        /* Querying the database for all users and then sending the result to the client. */
         let result = await UserModel.find();
         res.json(new SuccessModel(result, "queryWasSuccessful"));
     } catch (error) {
@@ -45,8 +49,9 @@ userRouter.get("/account", async function (req, res) {
     }
 });
 
-// deleteUserInformation
 userRouter.delete("/account", async function (req, res) {
+    /* Checking to see if the user exists in the database. If the user exists, it will delete the user.
+    If the user does not exist, it will return an error. */
     let hasRes = await UserModel.findOne(req.body);
     if (hasRes) {
         let { deletedCount } = await UserModel.remove(req.body);
@@ -58,8 +63,8 @@ userRouter.delete("/account", async function (req, res) {
     }
 });
 
-// modifyUserInformation
 userRouter.put("/account", async function (req, res) {
+    /* Updating the user's information. */
     let { nModified } = await UserModel.updateOne(
         req.query,
         { $set: req.body },

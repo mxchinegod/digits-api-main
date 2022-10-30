@@ -2,7 +2,8 @@
 
 let mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// 定义数据结构
+
+/* This is creating a new schema for the user model. */
 let UserSchema = new Schema({
     username: { type: String },
     email: { type: String },
@@ -12,6 +13,7 @@ let UserSchema = new Schema({
     createdAt: { type: Date },
     updatedAt: { type: Date }
 });
+
 module.exports = {
     UserSchema
 };
