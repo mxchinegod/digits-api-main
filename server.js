@@ -33,7 +33,6 @@ app.use("/api/user", userRouter);
 app.use("/api/altdata", altDataRouter);
 app.use("/api/tdadata", tdaDataRouter);
 app.use("/api/mldata", mlDataRouter);
-
 app.use("/api/setup", setup);
 
 app.use(function (req, res, next) {

@@ -9,7 +9,7 @@ class Options {
      * @returns An array of objects.
      */
     static options(query) {
-        return https.post(`${tdaDataHost}/tda/options`, {"query":query}).then((data)=>{return data.data});
+        return https.post(`${tdaDataHost}/tda/options`, {"query":query}).then((data)=>{return data.data}).catch(e=>{return e});
     }
 }
 
@@ -20,7 +20,7 @@ class Volatility {
      * @returns The volatility of the stock
      */
     static volatility(query) {
-        return https.post(`${tdaDataHost}/tda/volatility`, {"query":query}).then((data)=>{return data.data});
+        return https.post(`${tdaDataHost}/tda/volatility`, {"query":query}).then((data)=>{return data.data}).catch(e=>{return e});
     }
 }
 

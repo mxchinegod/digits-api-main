@@ -9,7 +9,7 @@ class SummarizeAPI {
      * @returns The data is being returned as a promise.
      */
     static bart_cnn(query) {
-        return https.post(`${mlDataHost}/bart_cnn`, {"query":query}).then((data)=>{return data.data});
+        return https.post(`${mlDataHost}/bart_cnn`, {"query":query}).then((data)=>{return data.data}).catch(e=>{return e});
     }
 }
 

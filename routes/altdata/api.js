@@ -8,7 +8,7 @@ class DarkPool {
      * @returns The data is being returned as a promise.
      */
     static spCompare() {
-        return https.get(`${altDataHost}/darkpool/spCompare`).then((data)=>{return data.data});
+        return https.get(`${altDataHost}/darkpool/spCompare`).then((data)=>{return data.data}).catch(e=>{return e});
     }
 }
 
