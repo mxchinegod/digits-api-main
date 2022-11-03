@@ -3,9 +3,7 @@
 "><img style="max-width:175px;" src="./digits2.gif">
 </a>
 <br>
-
 digits-api-main is the authentication, preprocessing, and tertiary API bridge in the [Digits](https://github.com/DylanAlloy/digits-ui) service mesh.<br>
-
 </p>
 <hr>
 
