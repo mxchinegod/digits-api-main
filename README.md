@@ -1,6 +1,6 @@
 <p align="center">
 <a target="_blank" rel="noreferrer" href="https://www.buymeacoffee.com/alloydylan
-"><img style="max-width:175px;" src="./public/digits2.gif">
+"><img style="max-width:175px;" src="./digits2.gif">
 </a>
 <br>
 digits-api-main is the authentication, preprocessing, and tertiary API bridge in the Digits service mesh.<br>
