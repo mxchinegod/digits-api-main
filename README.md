@@ -16,7 +16,7 @@ digits-api-main is the authentication, preprocessing, and tertiary API bridge in
 | [NodeJS](https://nodejs.org/en/) | Base | 16.18.0 |
 | [express-jwt](https://www.npmjs.com/package/express-jwt) | Authentication Middleware | 7.7.7 |
 | [mongoose](https://www.npmjs.com/package/mongoose) | DB Client | 6.7.0 |
-| [express](https://www.npmjs.com/package/express) | AI-generated commenting | 4.18.2 |
+| [express](https://www.npmjs.com/package/express) | Session Middleware | 4.18.2 |
 
 ##### You will want to know about each of these in depth by the above order.
 
@@ -62,7 +62,7 @@ npm start
  - 🗄 DB [ mongoose ]
      - All models are highly fluid and will accept most JSON as valid. This is by design as features are evaluated. Field validation will occur at a later date.
  - 🧮 Preprocessing [ node ]
-     - While not all data can/should be preprocessed by digits-api-main, a lot is. That puts it realistically in the role of a preprocessor. While all nodes technically work with dataframes and such, a lot of the focus in downstream responses ends up being data. 
+     - While not all data can/should be preprocessed by `digits-api-main`, a lot is. That puts it realistically in the role of a preprocessor. While all nodes technically work with dataframes and such, a lot of the focus in downstream responses ends up being data. 
 
 <br>
 
@@ -74,7 +74,7 @@ npm start
 - [x] Describe service API role
 - [ ] Add husky pre-commit
 - [ ] Create mesh diagram
-- [ ] Explain preprocessing philosophy
+- [x] Explain preprocessor philosophy
 
 ##### long-term
 
