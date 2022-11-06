@@ -13,6 +13,13 @@ class SummarizeAPI {
     }
 }
 
+class AutoDDAPI {
+    static autodd() {
+        return https.post(`${mlDataHost}/autodd`).then((data)=>{return data.data}).catch(e=>{return e});
+    }
+}
+
 module.exports = {
     SummarizeAPI
+    , AutoDDAPI
 }

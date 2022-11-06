@@ -1,11 +1,13 @@
 // routes/user.js
 
 let express = require("express");
+const stripe = require('stripe')('sk_test_Kgcalsjjpi8nd1esCWktMAN1');
 let userRouter = express.Router();
 const { UserModel } = require("../models/index");
 let jwt = require("jsonwebtoken");
 let config = require("../config");
 const { SuccessModel, ErrorModel } = require("../utils/resModule");
+const YOUR_DOMAIN = 'http://localhost:8000';
 
 userRouter.post("/register", async function (req, res) {
     /* Creating a new user and then sending a response to the client. */
@@ -75,6 +77,23 @@ userRouter.put("/account", async function (req, res) {
     } else {
         res.json(new ErrorModel("modificationFailed"));
     }
+});
+
+userRouter.post('/checkout', async (req, res) => {
+    const session = await stripe.checkout.sessions.create({
+        line_items: [
+          {
+            // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+            price: 'price_1M0AsaAy6KNxnnbKOTjIk6dC',
+            quantity: 1,
+          },
+        ],
+        mode: 'payment',
+        success_url: `${YOUR_DOMAIN}?success=true`,
+        cancel_url: `${YOUR_DOMAIN}?canceled=true`,
+        automatic_tax: {enabled: true},
+      });
+      res.redirect(303, session.url);
 });
 
 module.exports = {

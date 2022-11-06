@@ -12,6 +12,12 @@ mlDataRouter.post("/bart_cnn", async function (req, res) {
     })
 });
 
+mlDataRouter.post("/autodd", async function (req, res) {
+    api.AutoDDAPI.autodd().then((data)=>{
+        res.json(new SuccessModel(data));
+    })
+});
+
 module.exports = {
     mlDataRouter,
 };
