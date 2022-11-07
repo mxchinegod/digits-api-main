@@ -19,7 +19,14 @@ class AutoDDAPI {
     }
 }
 
+class GreeksAPI {
+    static greeks(query) {
+        return https.post(`${mlDataHost}/greeks`, {"query":query}).then((data)=>{return data.data}).catch(e=>{return e});
+    }
+}
+
 module.exports = {
     SummarizeAPI
     , AutoDDAPI
+    , GreeksAPI
 }

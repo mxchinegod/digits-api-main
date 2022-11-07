@@ -18,6 +18,12 @@ mlDataRouter.post("/autodd", async function (req, res) {
     })
 });
 
+mlDataRouter.post("/greeks", async function (req, res) {
+    api.GreeksAPI.greeks(req.body.query).then((data)=>{
+        res.json(new SuccessModel(data));
+    })
+});
+
 module.exports = {
     mlDataRouter,
 };
