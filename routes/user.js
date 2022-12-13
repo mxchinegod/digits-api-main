@@ -7,7 +7,6 @@ const { UserModel } = require("../models/index");
 let jwt = require("jsonwebtoken");
 let config = require("../config");
 const { SuccessModel, ErrorModel } = require("../utils/resModule");
-const YOUR_DOMAIN = 'http://localhost:8000';
 
 userRouter.post("/register", async function (req, res) {
     /* Creating a new user and then sending a response to the client. */
@@ -80,20 +79,35 @@ userRouter.put("/account", async function (req, res) {
 });
 
 userRouter.post('/checkout', async (req, res) => {
-    const session = await stripe.checkout.sessions.create({
-        line_items: [
-          {
-            // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: 'price_1M0AsaAy6KNxnnbKOTjIk6dC',
-            quantity: 1,
-          },
-        ],
-        mode: 'payment',
-        success_url: `${YOUR_DOMAIN}?success=true`,
-        cancel_url: `${YOUR_DOMAIN}?canceled=true`,
-        automatic_tax: {enabled: true},
-      });
-      res.redirect(303, session.url);
+    const endpointSecret = 'whsec_ce68514ffd7b885eaf5f537fd635f9f1e7ba00fd03bd8c9bc915a366d83ec519';
+    const payload = req.body;
+    const sig = req.headers['stripe-signature'];
+
+    let event;
+
+    try {
+        event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
+    } catch (err) {
+        return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+
+    // Handle the checkout.session.completed event
+    if (event.type === 'checkout.session.completed') {
+        // Retrieve the session. If you require line items in the response, you may include them by expanding line_items.
+        const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
+            session.id,
+            {
+                expand: ['line_items'],
+            }
+        );
+        const email = session.customer_details.email;
+        const lineItems = session.line_items;
+
+        // TODO: fill me in
+        console.log("Fulfilling order", lineItems);
+    }
+
+    res.status(200);
 });
 
 module.exports = {

@@ -25,7 +25,7 @@ app.use(
         algorithms: ["HS256"],
         credentialsRequired: true,
     }).unless({
-        path: ["/api/setup/status", "/api/user/register", "/api/user/login", "/api/user/account"]
+        path: ["/api/setup/status", "/api/user/checkout", "/api/user/register", "/api/user/login", "/api/user/account"]
     })
 );
 
