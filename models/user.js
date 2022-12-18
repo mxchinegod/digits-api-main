@@ -9,9 +9,10 @@ let UserSchema = new Schema({
     email: { type: String },
     password: { type: String },
     avatar: { type: String },
-    access: { type: String },
+    access: { type: String, default: 'user' },
     createdAt: { type: Date },
-    updatedAt: { type: Date }
+    updatedAt: { type: Date },
+    quota: {type: Object, default: []}
 });
 
 module.exports = {
