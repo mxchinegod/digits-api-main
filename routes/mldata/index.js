@@ -24,6 +24,12 @@ mlDataRouter.post("/greeks", async function (req, res) {
     })
 });
 
+mlDataRouter.post("/agi", async function (req, res) {
+    api.AGIAPI.oracle(req.body.query).then((data)=>{
+        res.json(new SuccessModel(data));
+    })
+});
+
 module.exports = {
     mlDataRouter,
 };

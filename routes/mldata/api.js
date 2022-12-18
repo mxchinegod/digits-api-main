@@ -25,8 +25,15 @@ class GreeksAPI {
     }
 }
 
+class AGIAPI {
+    static oracle(query) {
+        return https.post(`${mlDataHost}/oracle`, {"query":query}).then((data)=>{return data.data}).catch(e=>{return e});
+    }
+}
+
 module.exports = {
     SummarizeAPI
     , AutoDDAPI
     , GreeksAPI
+    , AGIAPI
 }
