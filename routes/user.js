@@ -78,20 +78,6 @@ userRouter.put("/account", async function (req, res) {
     }
 });
 
-userRouter.put("/insert", async function (req, res) {
-    /* Inserting the user's data. */
-    let nModified = await UserModel.findOneAndUpdate(
-        req.query,
-        { $push: req.body.insert },
-        { new: true }
-    );
-    if (nModified) {
-        res.json(new SuccessModel(data=nModified,"modificationSucceeded"));
-    } else {
-        res.json(new ErrorModel("modificationFailed"));
-    }
-});
-
 userRouter.post('/checkout', async (req, res) => {
     const endpointSecret = 'whsec_ce68514ffd7b885eaf5f537fd635f9f1e7ba00fd03bd8c9bc915a366d83ec519';
     const payload = req.body;
@@ -118,7 +104,16 @@ userRouter.post('/checkout', async (req, res) => {
         const lineItems = session.line_items;
 
         // TODO: fill me in
-        console.log("Fulfilling order", lineItems);
+        let { nModified } = await UserModel.updateOne(
+            {"email": email},
+            { $set: {"paid":lineItems} },
+            { multi: true }
+        );
+        if (nModified) {
+            res.json(new SuccessModel("modificationSucceeded"));
+        } else {
+            res.json(new ErrorModel("modificationFailed"));
+        }
     }
 
     res.status(200);

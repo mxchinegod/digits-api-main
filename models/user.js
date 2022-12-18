@@ -12,7 +12,8 @@ let UserSchema = new Schema({
     access: { type: String, default: 'user' },
     createdAt: { type: Date },
     updatedAt: { type: Date },
-    quota: {type: Object, default: []}
+    quota: {type: Object, default: []},
+    paid: {type: Object}
 });
 
 module.exports = {

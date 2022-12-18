@@ -75,6 +75,7 @@ npm start
 - [ ] Add husky pre-commit
 - [ ] Create mesh diagram
 - [x] Explain preprocessor philosophy
+- [ ] Clean up quota logic, make it middleware
 
 ##### long-term
 
