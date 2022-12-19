@@ -1,12 +1,13 @@
 // routes/user.js
 
+let config = require("../config");
 let express = require("express");
-const stripe = require('stripe')('sk_test_Kgcalsjjpi8nd1esCWktMAN1');
+const stripe = require('stripe')(config.stripeKey);
 let userRouter = express.Router();
 const { UserModel } = require("../models/index");
 let jwt = require("jsonwebtoken");
-let config = require("../config");
 const { SuccessModel, ErrorModel } = require("../utils/resModule");
+let bodyParser = require("body-parser");
 
 userRouter.post("/register", async function (req, res) {
     /* Creating a new user and then sending a response to the client. */
@@ -78,8 +79,8 @@ userRouter.put("/account", async function (req, res) {
     }
 });
 
-userRouter.post('/checkout', async (req, res) => {
-    const endpointSecret = 'whsec_ce68514ffd7b885eaf5f537fd635f9f1e7ba00fd03bd8c9bc915a366d83ec519';
+userRouter.post('/checkout', bodyParser.raw({type: 'application/json'}),  async (req, res) => {
+    const endpointSecret = config.stripeWebhookSecret;
     const payload = req.body;
     const sig = req.headers['stripe-signature'];
 
@@ -93,6 +94,7 @@ userRouter.post('/checkout', async (req, res) => {
 
     // Handle the checkout.session.completed event
     if (event.type === 'checkout.session.completed') {
+        const session = event.data.object;
         // Retrieve the session. If you require line items in the response, you may include them by expanding line_items.
         const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
             session.id,
@@ -101,12 +103,9 @@ userRouter.post('/checkout', async (req, res) => {
             }
         );
         const email = session.customer_details.email;
-        const lineItems = session.line_items;
-
-        // TODO: fill me in
-        let { nModified } = await UserModel.updateOne(
+        let nModified = await UserModel.updateOne(
             {"email": email},
-            { $set: {"paid":lineItems} },
+            { $set: {"paid": sessionWithLineItems} },
             { multi: true }
         );
         if (nModified) {
@@ -115,8 +114,6 @@ userRouter.post('/checkout', async (req, res) => {
             res.json(new ErrorModel("modificationFailed"));
         }
     }
-
-    res.status(200);
 });
 
 module.exports = {

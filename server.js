@@ -10,7 +10,13 @@ const config = require("./config");
 let { userRouter, tdaDataRouter, altDataRouter, mlDataRouter, setup } = require("./routes/index");
 
 /* Parsing the body of the request. */
-app.use(bodyParser.json());
+app.use((req, res, next) => {
+    if (req.originalUrl === '/api/user/checkout') {
+      next(); // Do nothing with the body because I need it in a raw state.
+    } else {
+      bodyParser.json()(req, res, next);  // ONLY do express.json() if the received request is NOT a WebHook from Stripe.
+    }
+  });
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors());
@@ -43,7 +49,7 @@ app.use(function (req, res, next) {
 401 error. */
 app.use(function (err, req, res, next) {
     if (err.name === "UnauthorizedError") {
-        res.status(401).send({ code: -1, msg: "Invalid token." });
+        res.status(401).send({ code: -1, msg: "Not logged in." });
     } else {
         res.locals.message = err.message;
         res.locals.error = req.app.get("env") === "development" ? err : {};
