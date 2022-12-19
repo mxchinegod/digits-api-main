@@ -26,4 +26,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: dylanalloy/digits-main:latest
+          tags: dylanalloy/digits-api-main:latest
