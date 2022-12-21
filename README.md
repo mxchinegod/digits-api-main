@@ -79,9 +79,9 @@ npm start
 
 ##### long-term
 
-- [ ] Create Stripe customer API
-- [ ] Docker images
-- [ ] Kubernetes deployment
+- [x] Create Stripe customer API
+- [x] Docker images
+- [x] Kubernetes deployment
 
 <br>
 <p align="center">
