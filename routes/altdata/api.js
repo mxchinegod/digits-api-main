@@ -23,7 +23,18 @@ class NewsAPI {
     }
 }
 
+class ReserveAPI {
+    /**
+     * It returns a promise that will resolve to the data returned from the API call.
+     * @returns The data is being returned.ß
+     */
+    static schedule() {
+        return https.get(`${altDataHost}/reserve/schedule`).then((data)=>{return data.data});
+    }
+}
+
 module.exports = {
     DarkPool
     , NewsAPI
+    , ReserveAPI
 }
