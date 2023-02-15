@@ -2,6 +2,7 @@ const { userRouter } = require("./user");
 const { altDataRouter } = require("./altdata/index");
 const { tdaDataRouter } = require("./tdadata/index");
 const { mlDataRouter } = require("./mldata/index");
+const { finModRouter } = require("./finmoddata/index")
 
 let express = require("express");
 let setup = express.Router();
@@ -16,6 +17,7 @@ module.exports = {
     userRouter,
     altDataRouter,
     tdaDataRouter,
+    finModRouter,
     mlDataRouter,
     setup
 };
