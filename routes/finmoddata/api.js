@@ -17,6 +17,9 @@ class FinMod {
     static financialGrowth(query) {
         return https.post(`${tdaDataHost}/finmod/financialGrowth`, {"query":query}).then((data)=>{return data.data}).catch(e=>{return e});
     }
+    static financialRatios(query) {
+        return https.post(`${tdaDataHost}/finmod/financialRatios`, {"query":query}).then((data)=>{return data.data}).catch(e=>{return e});
+    }
     static dcf(query) {
         return https.post(`${tdaDataHost}/finmod/dcf`, {"query":query}).then((data)=>{return data.data}).catch(e=>{return e});
     }

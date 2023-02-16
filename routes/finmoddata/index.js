@@ -26,6 +26,12 @@ finModRouter.post("/financialGrowth", async function (req, res) {
     })
 });
 
+finModRouter.post("/financialRatios", async function (req, res) {
+    api.FinMod.financialRatios(req.body).then((data)=>{
+        res.json(new SuccessModel(data));
+    })
+});
+
 finModRouter.post("/dcf", async function (req, res) {
     api.FinMod.dcf(req.body).then((data)=>{
         res.json(new SuccessModel(data));
