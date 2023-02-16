@@ -8,7 +8,7 @@ class FinMod {
      * @param query - The query object that you want to send to the TDA API.
      * @returns An array of objects.
      */
-    static stockPrices(query) {
+    static historicalPrices(query) {
         return https.post(`${tdaDataHost}/finmod/historicalPrices`, {"query":query}).then((data)=>{return data.data}).catch(e=>{return e});
     }
     static secFiling(query) {
