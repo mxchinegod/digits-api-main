@@ -12,6 +12,12 @@ tdaDataRouter.post("/options", async function (req, res) {
     })
 });
 
+tdaDataRouter.post("/historicalPrices", async function (req, res) {
+    api.HistoricalPrices.prices(req.body).then((data)=>{
+        res.json(new SuccessModel(data));
+    })
+});
+
 tdaDataRouter.post("/volatility", async function (req, res) {
     /* Calling the api.Volatility.volatility function and passing in the req.body. */
     api.Volatility.volatility(req.body).then((data)=>{

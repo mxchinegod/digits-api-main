@@ -13,6 +13,18 @@ class Options {
     }
 }
 
+class HistoricalPrices {
+    /**
+     * It returns the volatility of a stock.
+     * @param query - 
+     * @returns The volatility of the stock
+     */
+    static prices(query) {
+        return https.post(`${tdaDataHost}/tda/historicalPrices`, {"query":query}).then((data)=>{return data.data}).catch(e=>{return e});
+    }
+}
+
+
 class Volatility {
     /**
      * It returns the volatility of a stock.
@@ -26,5 +38,6 @@ class Volatility {
 
 module.exports = {
     Options
+    , HistoricalPrices
     , Volatility
 }
