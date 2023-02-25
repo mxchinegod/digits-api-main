@@ -10,6 +10,12 @@ const { SuccessModel, ErrorModel } = require("../utils/resModule");
 let bodyParser = require("body-parser");
 
 userRouter.post("/register", async function (req, res) {
+    /* Checking if the email already exists in the database */
+    const existingUser = await UserModel.findOne({ email: req.body.email });
+    if (existingUser) {
+        return res.status(400).json(new ErrorModel("emailAlreadyExists"));
+    }
+
     /* Creating a new user and then sending a response to the client. */
     await UserModel.create(req.body);
     res.json(new SuccessModel("registerWasSuccessful"));
