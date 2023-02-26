@@ -33,8 +33,19 @@ class ReserveAPI {
     }
 }
 
+class LeaksAPI {
+    /**
+     * It returns a promise that will resolve to the data returned from the API call.
+     * @returns The data is being returned.ß
+     */
+    static quarterly() {
+        return https.get(`${altDataHost}/leaks/quarterly`).then((data)=>{return data.data});
+    }
+}
+
 module.exports = {
     DarkPool
     , NewsAPI
     , ReserveAPI
+    , LeaksAPI
 }

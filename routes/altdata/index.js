@@ -29,6 +29,15 @@ altDataRouter.get("/reserve/schedule", async function (req, res) {
     })
 });
 
+altDataRouter.get("/leaks/quarterly", async function (req, res) {
+    /* This is a POST request to the route /reserve. It is using the ReserveAPI to get the data and then
+    sending it back to the client. */
+    api.LeaksAPI.quarterly().then((data)=>{
+        res.json(new SuccessModel(data));
+    })
+});
+
+
 module.exports = {
     altDataRouter,
 };

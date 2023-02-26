@@ -60,6 +60,12 @@ mlDataRouter.post("/agi", async function (req, res) {
 
 });
 
+mlDataRouter.post("/pdfSentiment", async function (req, res) {
+    api.PDFSentimentAPI.process(req.body.query).then((data) => {
+        res.json(new SuccessModel(data));
+    })
+});
+
 module.exports = {
     mlDataRouter,
 };

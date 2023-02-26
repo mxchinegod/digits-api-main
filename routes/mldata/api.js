@@ -31,9 +31,16 @@ class AGIAPI {
     }
 }
 
+class PDFSentimentAPI {
+    static process(query) {
+        return https.post(`${mlDataHost}/pdf_sentiment`, {"query":query}).then((data)=>{return data.data}).catch(e=>{return e});
+    }
+}
+
 module.exports = {
     SummarizeAPI
     , AutoDDAPI
     , GreeksAPI
     , AGIAPI
+    , PDFSentimentAPI
 }
