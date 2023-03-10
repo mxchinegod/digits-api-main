@@ -11,6 +11,8 @@ let bodyParser = require("body-parser");
 
 userRouter.post("/register", async function (req, res) {
     /* Creating a new user and then sending a response to the client. */
+    req.body.email = req.body.email.toLowerCase()
+    req.body.username = req.body.username.toLowerCase()
     const existingUser = await UserModel.findOne({ email: req.body.email });
     if (existingUser) {
         return res.status(400).json(new ErrorModel("emailAlreadyExists"));
@@ -23,6 +25,8 @@ userRouter.post("/login", async function (req, res) {
     /* This is the login route. It is taking the username and password from the request body and then
     using them to query the database. If the query is successful, it will return a token. If the
     query is unsuccessful, it will return an error. */
+    req.body.email = req.body.email.toLowerCase()
+    req.body.username = req.body.username.toLowerCase()
     let { username, password } = req.body;
     let query = { username, password };
     try {
