@@ -11,6 +11,10 @@ let bodyParser = require("body-parser");
 
 userRouter.post("/register", async function (req, res) {
     /* Creating a new user and then sending a response to the client. */
+    const existingUser = await UserModel.findOne({ email: req.body.email });
+    if (existingUser) {
+        return res.status(400).json(new ErrorModel("emailAlreadyExists"));
+    }
     await UserModel.create(req.body);
     res.json(new SuccessModel("registerWasSuccessful"));
 });
