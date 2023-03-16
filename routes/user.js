@@ -25,7 +25,6 @@ userRouter.post("/login", async function (req, res) {
     /* This is the login route. It is taking the username and password from the request body and then
     using them to query the database. If the query is successful, it will return a token. If the
     query is unsuccessful, it will return an error. */
-    req.body.email = req.body.email.toLowerCase()
     req.body.username = req.body.username.toLowerCase()
     let { username, password } = req.body;
     let query = { username, password };
