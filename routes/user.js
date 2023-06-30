@@ -31,6 +31,7 @@ userRouter.post("/login", async function (req, res) {
     try {
         let result = await UserModel.findOne(query);
         let resultJSON = result.toJSON();
+        resultJSON.quota = resultJSON.quota.length
         let token = jwt.sign(resultJSON, config.Secret, { expiresIn: config.EXPIRES });
         res.json(new SuccessModel(token));
     } catch (error) {
